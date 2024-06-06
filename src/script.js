@@ -5,14 +5,14 @@ let palpitesDado = [];
 function jogoDeAdivinhacao() {
   const palpiteDigitado = pegarPalpiteDigitado();
     
-  if (!palpiteDigitado || palpiteDigitado < 1 || palpiteDigitado > 100) {
+  if (!palpiteDigitado || palpiteDigitado <1 || palpiteDigitado > 100) {
     alert("Digite um valor entre 1 e 100!");
     return; 
   }
-    
+   
     if (palpitesDado.includes(palpiteDigitado)) {
       alert("Você ja tentou esse Mona, insira um numero diferente");
-       return;
+      return;
     } else {
       palpitesDado.push(palpiteDigitado);
     }
@@ -22,11 +22,11 @@ function jogoDeAdivinhacao() {
     alert("Parabéns, você ganhou!!!"); 
     reiniciarJogo();
     return;
+
     } else if (palpiteDigitado > numeroAleatorio) {
         tentativas++;
         atualizarFeedback("O número inserido é muito alto. Tente novamente.");
-    } else if ( palpiteDigitado < numeroAleatorio ) { 
-        tentativas++;
+    } else if ( palpiteDigitado < numeroAleatorio ){ tentativas++;
         atualizarFeedback ("O número inserido é muito baixo. Tente novamente.");
     }
 
@@ -42,6 +42,8 @@ function jogoDeAdivinhacao() {
         alert ("Deu Ruim mona! Quer se humilhar novamente?");
         reiniciarJogo();
     }
+
+
 }
 
 function reiniciarJogo() {
@@ -55,6 +57,8 @@ function reiniciarJogo() {
         atualizarPontuacao(100);
         atualizarFeedback("");
         limparPalpiteDigitado();
-    }
+        
 
+    }
 }
+ 
