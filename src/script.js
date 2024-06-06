@@ -1,27 +1,60 @@
-let numeroAleatorio = 0;
+let numeroAleatorio = Math.floor(Math.random() * 100) + 1;
 let tentativas = 0;
+let palpitesDado = [];
 
 function jogoDeAdivinhacao() {
-    /*
-    Guiado
-    ---
-    1. Não aceita palpite vazio
-    2. Dar dicas a cada palpite (maior ou menor)
-    3. Atualizar a pontuação a cada palpite errado
-    4. Mostrar todos os palpites errados
-    5. Deve-se poder reiniciar o jogo a qualquer momento
-    6. Se a pontuação chegar a zero, deve ser exibido um alerta e reiniciado o jogo
+  const palpiteDigitado = pegarPalpiteDigitado();
     
-    Individual
-    ---
-    7. Só deve aceitar numeros entre 1 e 100
-    8. Não deve aceitar palpite repetido
-    */
+  if (!palpiteDigitado || palpiteDigitado < 1 || palpiteDigitado > 100) {
+    alert("Digite um valor entre 1 e 100!");
+    return; 
+  }
+    
+    if (palpitesDado.includes(palpiteDigitado)) {
+      alert("Você ja tentou esse Mona, insira um numero diferente");
+       return;
+    } else {
+      palpitesDado.push(palpiteDigitado);
+    }
+    //SOS 
 
+  if (palpiteDigitado === numeroAleatorio) {
+    alert("Parabéns, você ganhou!!!"); 
+    reiniciarJogo();
+    return;
+    } else if (palpiteDigitado > numeroAleatorio) {
+        tentativas++;
+        atualizarFeedback("O número inserido é muito alto. Tente novamente.");
+    } else if ( palpiteDigitado < numeroAleatorio ) { 
+        tentativas++;
+        atualizarFeedback ("O número inserido é muito baixo. Tente novamente.");
+    }
 
-    // to-do
+    const novaPontuacao = 100 - (tentativas * 10);
+    atualizarPontuacao(novaPontuacao);
+
+    const palpitesFalhos = pegarPalpitesFalhos();
+    const novosPalpitesFalhos = palpitesFalhos + " " + palpiteDigitado;
+    atualizarPalpitesFalhos(novosPalpitesFalhos);
+
+    const pontuacaoAtual = pegarPontuacao();
+    if (pontuacaoAtual === "Você tem 0 pontos") {
+        alert ("Deu Ruim mona! Quer se humilhar novamente?");
+        reiniciarJogo();
+    }
 }
 
 function reiniciarJogo() {
-    // to-do
+    const vaiReiniciar = confirm("Deseja reiniciar? ");
+
+    if (vaiReiniciar === true) {
+      numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+      tentativas = 0;
+      palpitesDado = [];
+        atualizarPalpitesFalhos("");
+        atualizarPontuacao(100);
+        atualizarFeedback("");
+        limparPalpiteDigitado();
+    }
+
 }
